@@ -60,6 +60,8 @@ function App() {
         </div>
       </section>
 
+      <div className="section-divider reveal-item" />
+
       <section className="details" ref={detailsRef}>
         <div className="poem">
           <span className="reveal-line">花径不曾缘客扫</span>
@@ -68,9 +70,13 @@ function App() {
         </div>
       </section>
 
+      <div className="section-divider reveal-item" />
+
       <section className="map-section" ref={mapRevealRef}>
         <FoodMap />
       </section>
+
+      <div className="section-divider reveal-item" />
 
       <section id="rsvp" className="rsvp" ref={rsvpRef}>
         <div ref={rsvpRevealRef}>

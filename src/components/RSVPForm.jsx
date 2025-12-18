@@ -36,7 +36,7 @@ function RSVPForm() {
 
       const { saveRsvp } = await import('../services/rsvp.js')
       await saveRsvp(payload)
-      setStatus({ type: 'success', message: '提交成功，感谢回复！' })
+      setStatus({ type: 'success', message: '提交成功！期待你的到来' })
       setName('')
       setGuests(1)
       setPhone('')

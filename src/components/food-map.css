@@ -6,9 +6,10 @@
 }
 
 .map-title {
-  margin: 0 0 0.5rem;
-  font-family: 'Poller One', serif;
-  color: var(--ink);
+  /* margin: 0 0 0.5rem; */
+  /* font-family: 'Poller One', serif; */
+  /* color: var(--ink); */
+  /* Removed to inherit from index.css .map-title */
 }
 
 .map-subtitle {
