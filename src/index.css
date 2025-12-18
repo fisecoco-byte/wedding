@@ -1,0 +1,145 @@
+@import './animations.css';
+
+:root {
+  --bg: #FFFEE5;
+  --ink: #143C88;
+  --text: #143C88;
+  --ink-weak: rgba(20,60,136,0.85);
+  --surface: #FFFFFF;
+  --surface-muted: #F1F6FB;
+  --primary: #99BADD;
+  --primary-pressed: #7BAFD4;
+  --primary-ring: rgba(153,186,221,0.3);
+  --accent: #c05a72;
+  --accent-dark: #8f3b52;
+  --card: #ffffff;
+  --border: #eacbd3;
+  --card-width: 840px;
+}
+
+* { box-sizing: border-box }
+
+html, body, #root { height: 100% }
+body {
+  margin: 0;
+  color: var(--text);
+  font-family: 'Poller One', 'Cormorant Garamond', serif;
+  background: var(--bg);
+}
+
+.invitation {
+  display: grid;
+  grid-template-rows: auto auto auto;
+}
+
+.hero {
+  position: relative;
+  min-height: 62vh;
+  display: grid;
+  place-items: center;
+  text-align: center;
+  overflow: hidden;
+}
+.hero .overlay {
+  position: absolute; inset: 0;
+  background: url('data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="200" height="200" viewBox="0 0 200 200"><text x="50" y="100" fill="%23f7d7db" font-size="22">❤</text></svg>') repeat;
+  opacity: 0.12;
+}
+.hero .content { position: relative; padding: 2rem }
+.couple {
+  font-family: 'Poller One', 'Dancing Script', 'Cormorant Garamond', serif;
+  font-size: 3rem;
+  margin: 0;
+}
+.couple .line { display: block }
+.couple .line + .line { margin-top: 0.25rem }
+.tagline { margin: 0.5rem 0 0.25rem; font-style: italic }
+.date { opacity: 0.8; margin-bottom: 1.25rem }
+.cta {
+  display: inline-block;
+  padding: 0.75rem 1.25rem;
+  border-radius: 999px;
+  background: var(--primary);
+  color: #fff;
+  text-decoration: none;
+  transition: transform .12s ease, background-color .12s ease, box-shadow .12s ease;
+  box-shadow: 0 6px 14px rgba(153,186,221,0.2);
+}
+.cta:hover { background: var(--primary-pressed) }
+.cta:active { transform: scale(0.98); box-shadow: 0 2px 6px rgba(153,186,221,0.18) }
+
+.details, .rsvp { width: min(100%, var(--card-width)); margin: 0 auto; padding: 2rem }
+.details { background: transparent; }
+.rsvp { background: transparent; margin-top: 1.25rem; padding-bottom: 60px; }
+.map-section { width: min(100%, var(--card-width)); margin: 0 auto; }
+.details h2, .rsvp h2 { margin: 0 0 0.75rem; font-weight: 600 }
+.details h2::after, .rsvp h2::after { content: ''; display: block; width: 64px; height: 2px; background: var(--accent); margin-top: 0.5rem; opacity: 0.6 }
+
+.poem { display: grid; justify-items: center; gap: 0.4rem; padding: 0.5rem 0 }
+.poem .reveal-line, .poem .reveal-sub { opacity: 0; transform: translateY(6px); transition: opacity .5s ease, transform .5s ease; color: var(--ink) }
+.poem .reveal-line.in, .poem .reveal-sub.in { opacity: 1; transform: translateY(0) }
+.poem .reveal-line { font-family: 'Poller One', system-ui, sans-serif; font-size: 1.1rem; letter-spacing: 0.06rem }
+.poem .reveal-sub { font-size: 0.95rem; opacity: 0 }
+
+.rsvp-form { display: grid; grid-template-columns: 1fr; gap: 1rem 1.25rem; align-items: start; width: 100%; }
+.rsvp-form label { display: grid; gap: 0.5rem; width: 100%; }
+.rsvp-form input, .rsvp-form textarea {
+  width: 100%;
+  padding: 0.6rem 0.75rem;
+  border-radius: 8px;
+  border: 1px solid rgba(19,41,75,0.2);
+  background: var(--surface);
+  font-family: inherit;
+  color: var(--ink);
+}
+.rsvp-form input::placeholder, .rsvp-form textarea::placeholder { color: rgba(19,41,75,0.5) }
+.rsvp-form input:focus, .rsvp-form textarea:focus { outline: 0; border-color: var(--primary); box-shadow: 0 0 0 3px var(--primary-ring) }
+.date-group { border: none; padding: 0; display: flex; gap: 1rem; align-items: center; width: 100%; }
+.date-group legend { margin-right: 0.5rem }
+.radio { display: flex; gap: 0.5rem; align-items: center }
+.switch { display: flex; gap: 0.5rem; align-items: center }
+.group { display: grid; gap: 0.75rem; border: none; padding: 0; margin: 0; width: 100%; }
+.group-head { display: flex; align-items: baseline; gap: 0.5rem }
+.group-head small { opacity: 0.7 }
+.group.disabled { opacity: 0.6 }
+.group.disabled .segmented { pointer-events: none }
+.option-grid { display: grid; grid-template-columns: repeat(2, minmax(180px, 1fr)); gap: 0.75rem }
+.option-card { border: 1px solid rgba(19,41,75,0.15); border-radius: 12px; padding: 0.9rem 1rem; background: var(--surface); cursor: pointer; transition: transform .12s ease, box-shadow .12s ease, border-color .12s ease }
+.option-card:hover { box-shadow: 0 4px 12px rgba(153,186,221,0.12); border-color: rgba(153,186,221,0.5) }
+.option-card.selected { border-color: var(--primary); box-shadow: 0 6px 16px rgba(153,186,221,0.18); background: var(--surface-muted) }
+.option-card input { display: none }
+.option-title { font-weight: 600 }
+.option-desc { font-size: 0.9rem; opacity: 0.8; margin-top: 0.25rem }
+.segmented { display: inline-flex; border: 1px solid rgba(19,41,75,0.2); border-radius: 999px; overflow: hidden; background: var(--surface) }
+.seg-item { display: inline-flex; align-items: center; gap: 0.5rem; padding: 0.5rem 0.9rem; cursor: pointer; color: var(--ink-weak) }
+.seg-item input { display: none }
+.seg-item:not(.active):hover { background: var(--surface-muted) }
+.seg-item.active { background: var(--primary); color: #fff }
+.status { margin: 0.5rem 0; }
+.status.error { color: #b00020 }
+.status.success { color: #2e7d32 }
+
+.rsvp-form button {
+  grid-column: 1 / -1;
+  justify-self: center;
+  border-radius: 12px;
+  border: 1px solid rgba(153,186,221,0.5);
+  background: var(--primary);
+  color: #fff;
+  padding: 0.7rem 1.1rem;
+  box-shadow: 0 6px 14px rgba(153,186,221,0.2);
+  transition: transform .12s ease, background-color .12s ease, box-shadow .12s ease, border-color .12s ease;
+}
+.rsvp-form button:hover { background: var(--primary-pressed) }
+.rsvp-form button:active { transform: scale(0.98); box-shadow: 0 2px 6px rgba(153,186,221,0.18); border-color: var(--primary-pressed) }
+.rsvp-form button:disabled { opacity: 0.6; cursor: not-allowed; box-shadow: none }
+
+.date-group, .rsvp-form textarea, .status { grid-column: 1 / -1 }
+
+@media (max-width: 640px) {
+  .couple { font-size: 2.4rem }
+  .hero { min-height: 56vh }
+  .cta { width: 100% }
+  .rsvp-form { grid-template-columns: 1fr }
+  .option-grid { grid-template-columns: 1fr }
+}
