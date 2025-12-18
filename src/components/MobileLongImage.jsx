@@ -6,7 +6,7 @@ export default function MobileLongImage() {
   
   return (
     <div className="mobile-long">
-      <div className="ml-hero" style={{ backgroundImage: 'url(https://cdn.jsdelivr.net/gh/fisecoco-byte/images@master/image-hero.png)' }}>
+      <div className="ml-hero" style={{ backgroundImage: 'url(/images/image-hero.png)' }}>
       </div>
       <div className="ml-timeline" ref={timelineRef}>
         {/* 顶部装饰 */}
