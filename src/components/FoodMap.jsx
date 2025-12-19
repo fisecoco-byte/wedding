@@ -132,17 +132,21 @@ export default function FoodMap() {
   }, [mapInstance, activeCategory])
 
   return (
-    <div className="food-map-container reveal-item">
-      <h2 className="map-title">美食地图</h2>
-      <p className="map-subtitle">大邑周边游玩推荐（点击地图标记查看详情）</p>
+    <div className="food-map-container reveal-item py-12 px-8">
+      <div className="flex items-center gap-4 mb-10">
+          <span className="h-px flex-1 bg-[#2b4c7e]/10"></span>
+          <h2 className="text-xl font-light tracking-widest text-[#2b4c7e] map-title">美食地图</h2>
+          <span className="h-px flex-1 bg-[#2b4c7e]/10"></span>
+      </div>
+      <p className="map-subtitle text-xs text-[#2b4c7e]/50 tracking-wider text-center mb-6">大邑周边游玩推荐（点击地图标记查看详情）</p>
       
       {error && <div className="map-error">{error}</div>}
       
-      <div className="category-filter">
+      <div className="category-filter mb-6 flex flex-wrap justify-center gap-2">
         {CATEGORIES.map(cat => (
           <button
             key={cat}
-            className={`cat-btn ${activeCategory === cat ? 'active' : ''}`}
+            className={`cat-btn px-3 py-1 rounded-full text-xs transition-colors ${activeCategory === cat ? 'bg-[#2b4c7e] text-white' : 'bg-[#FFFDF5] text-[#2b4c7e]/70 border border-[#2b4c7e]/20'}`}
             onClick={() => setActiveCategory(cat)}
           >
             {cat}
@@ -150,7 +154,7 @@ export default function FoodMap() {
         ))}
       </div>
       
-      <div className="map-wrapper" ref={mapRef} />
+      <div className="map-wrapper rounded-sm border border-[#2b4c7e]/10 shadow-sm overflow-hidden" ref={mapRef} style={{ height: '300px' }} />
 
       {selectedSpot && (
         <div className="modal-overlay" onClick={() => setSelectedSpot(null)}>

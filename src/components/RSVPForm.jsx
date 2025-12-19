@@ -1,16 +1,16 @@
-import { useEffect, useMemo, useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function RSVPForm() {
   const [name, setName] = useState('')
   const [guests, setGuests] = useState(1)
   const [phone, setPhone] = useState('')
-  const [date, setDate] = useState('2025-01-23')
+  const [date, setDate] = useState('2026-01-23')
   const [needsLodging, setNeedsLodging] = useState(false)
   const [note, setNote] = useState('')
   const [status, setStatus] = useState({ type: 'idle', message: '' })
   const hasSupabase = Boolean(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY)
 
-  const lodgingEnabled = useMemo(() => date === '2025-01-23', [date])
+  const lodgingEnabled = date === '2026-01-23'
 
   useEffect(() => {
     if (!lodgingEnabled) setNeedsLodging(false)
@@ -40,7 +40,7 @@ function RSVPForm() {
       setName('')
       setGuests(1)
       setPhone('')
-      setDate('2025-01-23')
+      setDate('2026-01-23')
       setNeedsLodging(false)
       setNote('')
     } catch (err) {
@@ -89,23 +89,23 @@ function RSVPForm() {
           <small>请选择抵达日期</small>
         </div>
         <div className="option-grid">
-          <label className={`option-card ${date === '2025-01-23' ? 'selected' : ''}`}>
+          <label className={`option-card ${date === '2026-01-23' ? 'selected' : ''}`}>
             <input
               type="radio"
               name="date"
-              value="2025-01-23"
-              checked={date === '2025-01-23'}
+              value="2026-01-23"
+              checked={date === '2026-01-23'}
               onChange={(e) => setDate(e.target.value)}
             />
             <div className="option-title">1月23日</div>
             <div className="option-desc">可安排住宿</div>
           </label>
-          <label className={`option-card ${date === '2025-01-24' ? 'selected' : ''}`}>
+          <label className={`option-card ${date === '2026-01-24' ? 'selected' : ''}`}>
             <input
               type="radio"
               name="date"
-              value="2025-01-24"
-              checked={date === '2025-01-24'}
+              value="2026-01-24"
+              checked={date === '2026-01-24'}
               onChange={(e) => setDate(e.target.value)}
             />
             <div className="option-title">1月24日</div>
@@ -117,7 +117,7 @@ function RSVPForm() {
       <fieldset className={`group ${lodgingEnabled ? '' : 'disabled'}`}>
         <div className="group-head">
           <legend>住宿需求</legend>
-          <small>{lodgingEnabled ? '仅 1 月 23 日可选择住宿' : '选择 1 月 23 日后可填写住宿'}</small>
+          <small>{lodgingEnabled ? '仅 1月23日可选择住宿' : '选择 1月23日后可填写住宿'}</small>
         </div>
         <div className="segmented">
           <label className={`seg-item ${lodgingEnabled && needsLodging ? 'active' : ''}`}>

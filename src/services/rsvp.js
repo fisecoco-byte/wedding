@@ -11,7 +11,14 @@ export async function saveRsvp(data) {
     .limit(1)
     .maybeSingle()
   
-  if (searchError) throw searchError
+  if (searchError) {
+    // If table not found error, try creating it (though client can't create tables usually)
+    // or just fallback to generic error handling.
+    // For now, let's revert to 'rsvps' table if 'wedding' table doesn't exist or permissions issue.
+    // However, the error 'Could not find the table' suggests the table name might be wrong or schema cache issue.
+    // Let's stick to 'rsvps' as it was likely the original table name.
+    throw searchError
+  }
 
   if (existing) {
     // Update existing record
