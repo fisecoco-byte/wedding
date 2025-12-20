@@ -18,7 +18,7 @@
   position: absolute;
   left: 50%;
   transform: translate(-50%, -190%);
-  font-family: 'Poller One', serif;
+  font-family: 'Afacad', 'Poller One', serif;
   font-size: 16px;
   color: #143c88;
   letter-spacing: 4px;
@@ -94,7 +94,7 @@
 }
 
 .ml-title {
-  font-family: 'Poller One', serif;
+  font-family: 'Afacad', 'Poller One', serif;
   font-size: 24px;
   color: #143c88;
   letter-spacing: 4px;
@@ -177,7 +177,7 @@
 
 .ml-text {
   color: #143c88;
-  font-family: 'Poller One', serif;
+  font-family: 'Afacad', 'Poller One', serif;
   font-size: 13px;
   line-height: 1.5;
 }
@@ -192,7 +192,7 @@
 .ml-tips {
   margin-top: 40px;
   color: rgba(20, 60, 136, 0.7);
-  font-family: 'Poller One', serif;
+  font-family: 'Afacad', 'Poller One', serif;
   font-size: 12px;
 }
 .ml-tips-label {

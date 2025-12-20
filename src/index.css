@@ -23,7 +23,7 @@ html, body, #root { height: 100% }
 body {
   margin: 0;
   color: var(--text);
-  font-family: 'Poller One', 'Cormorant Garamond', serif;
+  font-family: 'Afacad', 'Poller One', 'Cormorant Garamond', serif;
   background: var(--bg);
 }
 
@@ -59,7 +59,7 @@ body {
 }
 .hero .content { position: relative; padding: 2rem }
 .couple {
-  font-family: 'Poller One', 'Dancing Script', 'Cormorant Garamond', serif;
+  font-family: 'Afacad', 'Poller One', 'Dancing Script', 'Cormorant Garamond', serif;
   font-size: 3rem;
   margin: 0;
 }
@@ -94,7 +94,7 @@ body {
 .details { background: transparent; }
 .rsvp { background: transparent; margin-top: 1.25rem; padding-bottom: 60px; }
 .map-section { width: min(100%, var(--card-width)); margin: 0 auto; }
-.details h2, .rsvp h2, .map-title { margin: 0 0 0.75rem; font-weight: 600; font-family: 'Poller One', serif; color: var(--ink); text-align: center; font-size: 1.5rem; }
+.details h2, .rsvp h2, .map-title { margin: 0 0 0.75rem; font-weight: 600; font-family: 'Afacad', 'Poller One', serif; color: var(--ink); text-align: center; font-size: 1.5rem; }
 .details h2::after, .rsvp h2::after, .map-title::after { content: ''; display: block; width: 64px; height: 2px; background: var(--accent); margin-top: 0.5rem; opacity: 0.6; margin-left: auto; margin-right: auto; }
 
 .poem { display: grid; justify-items: center; gap: 0.8rem; padding: 2rem 0; text-align: center; }
@@ -111,7 +111,7 @@ body {
   filter: blur(0);
 }
 .poem .reveal-line { 
-  font-family: 'Poller One', system-ui, sans-serif; 
+  font-family: 'Afacad', 'Poller One', system-ui, sans-serif; 
   font-size: 1.4rem; 
   letter-spacing: 0.1rem; 
   text-shadow: 0 2px 4px rgba(20, 60, 136, 0.1);
@@ -161,7 +161,7 @@ body {
 .seg-item input { display: none }
 .seg-item:not(.active):hover { background: var(--surface-muted) }
 .seg-item.active { background: var(--primary); color: #fff }
-.status { margin: 0.5rem 0; font-family: 'Poller One', serif; font-size: 1.1rem; text-align: center; }
+.status { margin: 0.5rem 0; font-family: 'Afacad', 'Poller One', serif; font-size: 1.1rem; text-align: center; }
 .status.error { color: #b00020; }
 .status.success { color: var(--primary); font-weight: 600; padding: 1rem; border: 1px dashed var(--primary); border-radius: 12px; background: rgba(153, 186, 221, 0.1); }
 
@@ -306,7 +306,7 @@ body {
 }
 
 .modal-title {
-  font-family: 'Poller One', serif;
+  font-family: 'Afacad', 'Poller One', serif;
   font-size: 1.2rem;
   color: var(--ink);
   margin: 0 0 0.5rem 0;
@@ -362,7 +362,7 @@ body {
 
 /* Imported from generated-page.html */
 .font-en {
-    font-family: 'Playfair Display', serif;
+    font-family: 'Afacad', 'Playfair Display', serif;
 }
 
 /* 纸张纹理叠加 */

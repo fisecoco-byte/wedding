@@ -4,7 +4,56 @@ import { useEffect, useRef, useState } from 'react'
 import { useStaggerReveal } from './hooks/useStaggerReveal'
 import FoodMap from './components/FoodMap.jsx'
 
+function LoadingScreen({ isLoading }) {
+  const [visible, setVisible] = useState(true)
+  
+  useEffect(() => {
+    if (!isLoading) {
+      const timer = setTimeout(() => setVisible(false), 800) // 0.8s fade out duration
+      return () => clearTimeout(timer)
+    }
+  }, [isLoading])
+
+  if (!visible) return null
+
+  return (
+    <div 
+      className={`fixed inset-0 z-[9999] bg-[#FFFDF5] flex flex-col items-center justify-center transition-opacity duration-800 ease-out ${isLoading ? 'opacity-100' : 'opacity-0'}`}
+      style={{ transitionDuration: '800ms' }}
+    >
+       <div className="relative mb-6">
+         <div className="w-16 h-16 border-2 border-[#d64045]/20 rounded-full animate-spin-slow"></div>
+         <div className="absolute inset-0 flex items-center justify-center">
+            <iconify-icon icon="lucide:heart" width="24" class="text-[#d64045] animate-pulse"></iconify-icon>
+         </div>
+       </div>
+       <div className="text-[#2b4c7e] font-serif tracking-[0.3em] text-sm animate-pulse">
+         正在开启浪漫之旅...
+       </div>
+    </div>
+  )
+}
+
 function App() {
+  const [isLoading, setIsLoading] = useState(true)
+  
+  useEffect(() => {
+    // Wait for all images to load
+    const images = Array.from(document.images)
+    const promises = images.map(img => {
+      if (img.complete) return Promise.resolve()
+      return new Promise(resolve => {
+        img.onload = resolve
+        img.onerror = resolve
+      })
+    })
+
+    Promise.all(promises).then(() => {
+      // Add a small buffer to ensure smooth transition
+      setTimeout(() => setIsLoading(false), 1500)
+    })
+  }, [])
+
   const detailsRef = useRef(null)
   const rsvpRef = useRef(null)
   const heroRef = useStaggerReveal('.reveal-item', 150)
@@ -109,8 +158,10 @@ function App() {
   }
 
   return (
-    <div className="invitation">
-      <MobileLongImage />
+    <>
+      <LoadingScreen isLoading={isLoading} />
+      <div className="invitation">
+        <MobileLongImage />
 
       {/* Inserted Section from Generated Page */}
       <section className="py-16 px-8 space-y-16">
@@ -260,6 +311,7 @@ function App() {
         </section>
 
     </div>
+    </>
   )
 }
 
