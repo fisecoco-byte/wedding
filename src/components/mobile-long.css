@@ -42,7 +42,7 @@
   /* Dashed border styling */
   border: 1px dashed #E2041E;
   border-radius: 12px;
-  padding: 40px 0 20px; /* Optional padding inside the border */
+  padding: 20px 0 20px; /* Optional padding inside the border */
   box-sizing: border-box;
   overflow: hidden; /* Ensure content respects border radius */
 }

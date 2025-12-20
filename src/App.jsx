@@ -165,17 +165,7 @@ function App() {
 
       {/* Inserted Section from Generated Page */}
       <section className="py-16 px-8 space-y-16">
-            
-            <div className="text-center space-y-6 fade-up">
-                <iconify-icon icon="lucide:quote" width="24" class="text-[#d64045]/40"></iconify-icon>
-                <p className="text-base leading-loose text-[#2b4c7e]/90 font-light">
-                    两姓联姻，一堂缔约<br />
-                    良缘永结，匹配同称<br />
-                    谨以白头之约，书向鸿笺<br />
-                    好将红叶之盟，载明鸳谱
-                </p>
-                <div className="w-12 h-px bg-[#d64045]/30 mx-auto mt-4"></div>
-            </div>
+
 
             <div className="space-y-6 fade-up delay-100">
                 {/* 卡片样式 */}
