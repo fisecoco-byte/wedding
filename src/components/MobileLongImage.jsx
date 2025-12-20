@@ -17,12 +17,12 @@ export default function MobileLongImage() {
           <div className="ml-center-img-container">
             <img  className="ml-center-img" src="/images/center.png" alt="decoration" />
           </div>
-          <img src="/images/bottom.png" style={{width: ''}} alt="decoration" />
+          <img src="/images/bottom.png" style={{width: '80%'}} alt="decoration" />
         </div>
       </div>
 
       {/* Timeline Section */}
-      <img src="/images/time-line.png"  alt="decoration" className="ml-timeline-img" />
+      <div style={{width: '100%', padding: '0 10px'}}> <img src="/images/time-line.png"  alt="decoration" className="ml-timeline-img" /></div>
 
       {/* <div className="ml-timeline">
         <div className="ml-timeline-header reveal-item">
