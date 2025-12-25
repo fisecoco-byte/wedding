@@ -134,8 +134,7 @@ function App() {
 
   function openMap() {
     // 经纬度：103.51, 30.58
-    // 使用高德地图/百度地图/腾讯地图的 URI Scheme 或网页版
-    // 这里优先尝试打开高德地图，回退到百度地图网页版
+    // 使用百度地图
     const lng = 103.51
     const lat = 30.58
     const name = '塞尚庄园酒店'
@@ -144,16 +143,15 @@ function App() {
     const isMobile = /Android|webOS|iPhone|iPad|iPod|BlackBerry|IEMobile|Opera Mini/i.test(navigator.userAgent)
     
     if (isMobile) {
-        // 尝试打开高德地图
-        window.location.href = `uri.amap.com://viewMap?defaultCoordinate=${lng},${lat}&name=${name}`
+        // 尝试打开百度地图 App
+        window.location.href = `baidumap://map/marker?location=${lat},${lng}&title=${name}&content=${name}&src=webapp.wedding`
         
-        // 如果没有安装高德，可以考虑回退逻辑（这里简单处理，直接跳转网页版作为通用方案）
-        // 实际开发中，通常会弹窗让用户选择地图 App
+        // 回退到网页版
         setTimeout(() => {
-            window.location.href = `https://uri.amap.com/marker?position=${lng},${lat}&name=${name}`
+            window.location.href = `http://api.map.baidu.com/marker?location=${lat},${lng}&title=${name}&content=${name}&output=html&src=webapp.wedding`
         }, 2000)
     } else {
-        window.open(`https://uri.amap.com/marker?position=${lng},${lat}&name=${name}`, '_blank')
+        window.open(`http://api.map.baidu.com/marker?location=${lat},${lng}&title=${name}&content=${name}&output=html&src=webapp.wedding`, '_blank')
     }
   }
 
