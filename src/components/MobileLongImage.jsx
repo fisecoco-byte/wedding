@@ -9,7 +9,7 @@ export default function MobileLongImage() {
       {/* Save The Date Card */}
       <div className="ml-card reveal-item">
         <div className="ml-card-content">
-          <img src="/images/SAVETHEDATE.png" alt="decoration" style={{width: 'auto'}} />
+          <img src="/images/SAVETHEDATE.png" alt="decoration" style={{width: '80%'}} />
           <div>
             <img src="/images/top.png" alt="decoration" />
             <div className="ml-name">魏萌 & 尹怀可</div>
