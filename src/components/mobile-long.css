@@ -17,13 +17,14 @@
   text-align: center;
   position: absolute;
   left: 50%;
-  transform: translate(-50%, -190%);
-  font-family: 'Afacad', 'Poller One', serif;
-  font-size: 16px;
+  transform: translate(-50%, -150%);
+  font-family: 'Arima';
+  font-size: 18px;
   color: #143c88;
-  letter-spacing: 4px;
+  letter-spacing: 2px;
   margin: 0;
-  text-transform: uppercase;
+  white-space: nowrap;
+  font-weight: 400;
 }
 
 .ml-center-img-container {

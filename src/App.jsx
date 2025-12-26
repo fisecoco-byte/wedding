@@ -133,10 +133,10 @@ function App() {
   }
 
   function openMap() {
-    // 经纬度：103.51, 30.58
+    // 经纬度：103.514894, 30.578353
     // 使用百度地图
-    const lng = 103.51
-    const lat = 30.58
+    const lng = 103.514894
+    const lat = 30.578353
     const name = '塞尚庄园酒店'
     
     // 移动端尝试打开地图 App，PC 端打开网页

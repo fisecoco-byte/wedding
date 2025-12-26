@@ -17,7 +17,6 @@ export default function MobileLongImage() {
           <div className="ml-center-img-container">
             <img  className="ml-center-img" src="/images/center.png" alt="decoration" />
           </div>
-          <img src="/images/bottom.png" style={{width: '80%'}} alt="decoration" />
         </div>
       </div>
 
