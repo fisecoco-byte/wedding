@@ -28,7 +28,8 @@
 }
 
 .ml-center-img-container {
-  margin-bottom: 20px;
+  position: relative;
+  top: -20px
 }
 
 .ml-card-content {
@@ -43,7 +44,7 @@
   /* Dashed border styling */
   border: 1px dashed #E2041E;
   border-radius: 12px;
-  padding: 20px 0 20px; /* Optional padding inside the border *
+  padding: 20px 0 0px; /* Optional padding inside the border *
   box-sizing: border-box;
   overflow: hidden; /* Ensure content respects border radius */
 }

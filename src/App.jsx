@@ -95,27 +95,24 @@ function App() {
 
   const [name, setName] = useState('')
   const [phone, setPhone] = useState('')
+  const [guests, setGuests] = useState(1)
   const [attendance, setAttendance] = useState('yes') // 'yes' | 'no'
   const [needsLodging, setNeedsLodging] = useState('no') // 'yes' | 'no'
+  const [note, setNote] = useState('')
   const [status, setStatus] = useState({ type: 'idle', message: '' })
-  const hasSupabase = Boolean(import.meta.env.VITE_SUPABASE_URL && import.meta.env.VITE_SUPABASE_ANON_KEY)
 
   async function handleSubmit(e) {
     e.preventDefault()
-    if (!hasSupabase) {
-      setStatus({ type: 'error', message: '未配置数据库' })
-      return
-    }
     setStatus({ type: 'loading', message: '提交中…' })
     
     try {
       const payload = {
         name: name.trim(),
         phone: phone.trim(),
-        guests: 1, // Default to 1 for now, can be expanded
+        guests: parseInt(guests) || 1,
         date: '2026-01-24', // Default date
         needsLodging: needsLodging === 'yes',
-        note: attendance === 'no' ? '遗憾缺席' : '',
+        note: note.trim() || (attendance === 'no' ? '遗憾缺席' : ''),
         created_at: new Date().toISOString(),
       }
 
@@ -124,8 +121,10 @@ function App() {
       setStatus({ type: 'success', message: '提交成功！期待你的到来' })
       setName('')
       setPhone('')
+      setGuests(1)
       setAttendance('yes')
       setNeedsLodging('no')
+      setNote('')
     } catch (err) {
       const msg = err?.message || '提交失败，请稍后重试'
       setStatus({ type: 'error', message: msg })
@@ -191,7 +190,7 @@ function App() {
                     <h3 className="text-lg font-medium mt-3 mb-2">良辰吉时</h3>
                     <p className="text-sm text-[#2b4c7e]/70 leading-relaxed">
                         2026年1月24日 (周六)<br />
-                        农历腊月初七<br />
+                        农历腊月初六<br />
                         12:00 入席
                     </p>
                 </div>
@@ -243,6 +242,18 @@ function App() {
                     </div>
 
                     <div className="space-y-2">
+                        <label className="text-xs text-[#2b4c7e]/60 tracking-widest block">GUESTS</label>
+                        <input 
+                          type="number" 
+                          min="1"
+                          placeholder="前往人数" 
+                          className="w-full input-line text-base text-[#2b4c7e] placeholder-[#2b4c7e]/20 font-serif bg-transparent"
+                          value={guests}
+                          onChange={(e) => setGuests(e.target.value)}
+                        />
+                    </div>
+
+                    <div className="space-y-2">
                         <label className="text-xs text-[#2b4c7e]/60 tracking-widest block">ATTENDANCE</label>
                         <div className="flex gap-4 pt-2">
                             <label className="flex items-center gap-2 cursor-pointer group" onClick={() => setAttendance('yes')}>
@@ -280,6 +291,17 @@ function App() {
                             </div>
                         </div>
                     )}
+
+                    <div className="space-y-2">
+                        <label className="text-xs text-[#2b4c7e]/60 tracking-widest block">NOTE</label>
+                        <textarea 
+                          rows="2"
+                          placeholder="备注信息 (可选)" 
+                          className="w-full input-line text-base text-[#2b4c7e] placeholder-[#2b4c7e]/20 font-serif bg-transparent resize-none"
+                          value={note}
+                          onChange={(e) => setNote(e.target.value)}
+                        />
+                    </div>
 
                     {status.type === 'error' && <p className="text-xs text-[#d64045] text-center">{status.message}</p>}
                     {status.type === 'success' && <p className="text-xs text-[#2b4c7e] text-center">{status.message}</p>}
