@@ -177,7 +177,7 @@ function App() {
         </section>
 
       {/* Inserted Section from Generated Page */}
-      <section className="py-16 px-8 space-y-16 velocity-skew" ref={locationRef} string-lerp>
+      <section className="pt-16 px-8 space-y-16 velocity-skew" ref={locationRef} string-lerp>
 
 
             <div className="space-y-6">
@@ -193,7 +193,7 @@ function App() {
                         塞尚庄园酒店<br />
                         宴会厅
                     </p>
-                    <button className="text-xs bg-[#2b4c7e] text-white px-5 py-2 rounded-sm tracking-wider flex items-center gap-2 mx-auto active:scale-95 transition-transform" onClick={openMap}>
+                    <button className="text-xs bg-[#2b4c7e] text-white px-5 py-2 rounded-full tracking-wider flex items-center gap-2 mx-auto active:scale-95 transition-transform" onClick={openMap}>
                         查看地图 <iconify-icon icon="lucide:arrow-right" width="10"></iconify-icon>
                     </button>
                 </div>
@@ -214,8 +214,8 @@ function App() {
         </section>
 
                 {/* Screen 4: RSVP */}
-        <section className="py-16 px-6 pb-24" ref={rsvpRef} id="rsvp">
-            <div className="reveal-item bg-[#FFFDF5] relative p-8 rounded-sm border border-[#2b4c7e]/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.05)] fade-up" string-reveal string-reveal-delay="100">
+        <section className="pt-8 px-6 pb-4" ref={rsvpRef} id="rsvp">
+            <div className="reveal-item bg-white/40 relative p-8 rounded-sm  shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] fade-up" string-reveal string-reveal-delay="100">
                 {/* 邮票装饰 */}
                 <div className="absolute -top-3 -right-3 w-16 h-16 bg-white border border-[#2b4c7e]/10 shadow-sm flex items-center justify-center rotate-6 z-10">
                     <div className="w-[90%] h-[90%] border border-dashed border-[#d64045]/40 flex items-center justify-center">
@@ -317,7 +317,7 @@ function App() {
                     {status.type === 'error' && <p className="text-xs text-[#d64045] text-center">{status.message}</p>}
                     {status.type === 'success' && <p className="text-xs text-[#2b4c7e] text-center">{status.message}</p>}
 
-                    <button type="submit" disabled={status.type === 'loading'} style={{padding: '0.25rem 0'}} className="w-full mt-8 bg-[#2b4c7e] text-white py-3.5 rounded-sm shadow-lg shadow-[#2b4c7e]/20 active:scale-[0.98] transition-all duration-300 flex flex-row items-center justify-center gap-2 disabled:opacity-70">
+                    <button type="submit" disabled={status.type === 'loading'} style={{padding: '0.25rem 0'}} className="w-full mt-8 bg-[#2b4c7e] text-white py-3.5 rounded-full shadow-lg shadow-[#2b4c7e]/20 active:scale-[0.98] transition-all duration-300 flex flex-row items-center justify-center gap-2 disabled:opacity-70">
                         <span className="text-sm tracking-[0.2em] font-light whitespace-nowrap">{status.type === 'loading' ? '提交中...' : '发送回执'}</span>
                         <iconify-icon icon="lucide:send" width="14" class="group-hover:translate-x-1 transition-transform flex-shrink-0"></iconify-icon>
                     </button>
