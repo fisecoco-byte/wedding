@@ -1,0 +1,25 @@
+server {
+    listen 80;
+    server_name your-domain.com; # 将此处替换为您的域名或 IP
+
+    # 前端静态文件 (Vite build output)
+    location / {
+        root /path/to/your/project/dist; # 替换为您的 dist 目录的绝对路径
+        index index.html;
+        try_files $uri $uri/ /index.html; # 支持 React Router 的 History 模式
+    }
+
+    # 后端 API 转发
+    location /api {
+        proxy_pass http://localhost:3001; # 转发到本地 Node.js 后端端口
+        proxy_http_version 1.1;
+        proxy_set_header Upgrade $http_upgrade;
+        proxy_set_header Connection 'upgrade';
+        proxy_set_header Host $host;
+        proxy_cache_bypass $http_upgrade;
+        
+        # 获取真实客户端 IP
+        proxy_set_header X-Real-IP $remote_addr;
+        proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+    }
+}
