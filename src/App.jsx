@@ -3,24 +3,24 @@ import MobileLongImage from './components/MobileLongImage.jsx'
 import { useEffect, useRef, useState } from 'react'
 import { useStaggerReveal } from './hooks/useStaggerReveal'
 import FoodMap from './components/FoodMap.jsx'
+import { StringTune, StringParallax, StringLerp } from '@fiddle-digital/string-tune'
+import { StringReveal } from './modules/StringReveal.js'
 
 function LoadingScreen({ isLoading }) {
-  const [visible, setVisible] = useState(true)
+  const [shouldRender, setShouldRender] = useState(true)
   
   useEffect(() => {
     if (!isLoading) {
-      const timer = setTimeout(() => setVisible(false), 800) // 0.8s fade out duration
+      // Wait for exit animation to finish before removing from DOM
+      const timer = setTimeout(() => setShouldRender(false), 1200)
       return () => clearTimeout(timer)
     }
   }, [isLoading])
 
-  if (!visible) return null
+  if (!shouldRender) return null
 
   return (
-    <div 
-      className={`fixed inset-0 z-[9999] bg-[#FFFDF5] flex flex-col items-center justify-center transition-opacity duration-800 ease-out ${isLoading ? 'opacity-100' : 'opacity-0'}`}
-      style={{ transitionDuration: '800ms' }}
-    >
+    <div className={`loading-curtain ${!isLoading ? 'exit' : ''}`}>
        <div className="relative mb-6">
          <div className="w-16 h-16 border-2 border-[#d64045]/20 rounded-full animate-spin-slow"></div>
          <div className="absolute inset-0 flex items-center justify-center">
@@ -37,7 +37,20 @@ function LoadingScreen({ isLoading }) {
 function App() {
   const [isLoading, setIsLoading] = useState(true)
   
+  const [pageVisible, setPageVisible] = useState(false)
+  
   useEffect(() => {
+    // Initialize StringTune
+    try {
+      const tune = StringTune.getInstance()
+      tune.use(StringParallax)
+      tune.use(StringLerp)
+      tune.use(StringReveal)
+      tune.start()
+    } catch (e) {
+      console.error('StringTune init failed:', e)
+    }
+
     // Wait for all images to load
     const images = Array.from(document.images)
     const promises = images.map(img => {
@@ -50,23 +63,18 @@ function App() {
 
     Promise.all(promises).then(() => {
       // Add a small buffer to ensure smooth transition
-      setTimeout(() => setIsLoading(false), 1500)
+      setTimeout(() => {
+        setIsLoading(false)
+        setPageVisible(true)
+      }, 800)
     })
   }, [])
 
   const detailsRef = useRef(null)
-  const rsvpRef = useRef(null)
-  const heroRef = useStaggerReveal('.reveal-item', 150)
-  const rsvpRevealRef = useStaggerReveal('.reveal-item', 100)
+  const timelineRef = useStaggerReveal('.reveal-item', 100)
+  const locationRef = useStaggerReveal('.reveal-item', 100)
+  const rsvpRef = useStaggerReveal('.reveal-item', 100)
   const mapRevealRef = useStaggerReveal('.reveal-item', 100)
-  
-  const [showForm, setShowForm] = useState(false)
-  function handleOpenForm(e) {
-    e.preventDefault()
-    setShowForm(true)
-    const el = rsvpRef.current
-    if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' })
-  }
   
   // Existing poem animation logic (kept for specific timing requirements)
   useEffect(() => {
@@ -157,16 +165,24 @@ function App() {
   return (
     <>
       <LoadingScreen isLoading={isLoading} />
-      <div className="invitation">
+      <div className={`invitation page-enter ${pageVisible ? 'visible' : ''}`} string="scroll">
+        <section className="velocity-skew" string-lerp>
         <MobileLongImage />
+        </section>
+        <section ref={timelineRef} className="velocity-skew" string-lerp>
+          <div className="reveal-item" style={{width: '100%', padding: '0 10px'}} string-reveal> 
+            <img src="/images/time-line.png"  alt="decoration" className="ml-timeline-img" string-parallax="0.1" />
+          </div>
+
+        </section>
 
       {/* Inserted Section from Generated Page */}
-      <section className="py-16 px-8 space-y-16">
+      <section className="py-16 px-8 space-y-16 velocity-skew" ref={locationRef} string-lerp>
 
 
-            <div className="space-y-6 fade-up delay-100">
+            <div className="space-y-6">
                 {/* 卡片样式 */}
-                <div className="bg-white/40 border border-[#fff]/60 backdrop-blur-sm p-6 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded-sm text-center relative">
+                <div className="reveal-item bg-white/40 border border-[#fff]/60 backdrop-blur-sm p-6 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded-sm text-center relative" string-reveal string-reveal-delay="100">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#FFFDF5] p-2 rounded-full border border-[#2b4c7e]/5">
                         <iconify-icon icon="lucide:map-pin" width="20" class="text-[#d64045]"></iconify-icon>
                     </div>
@@ -182,7 +198,7 @@ function App() {
                     </button>
                 </div>
 
-                <div className="bg-white/40 border border-[#fff]/60 backdrop-blur-sm p-6 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded-sm text-center relative mt-10">
+                <div className="reveal-item bg-white/40 border border-[#fff]/60 backdrop-blur-sm p-6 shadow-[0_4px_20px_-10px_rgba(0,0,0,0.05)] rounded-sm text-center relative mt-10" string-reveal string-reveal-delay="100">
                     <div className="absolute top-0 left-1/2 -translate-x-1/2 -translate-y-1/2 bg-[#FFFDF5] p-2 rounded-full border border-[#2b4c7e]/5">
                         <iconify-icon icon="lucide:clock-4" width="20" class="text-[#d64045]"></iconify-icon>
                     </div>
@@ -197,14 +213,9 @@ function App() {
             </div>
         </section>
 
-      <section className="map-section" ref={mapRevealRef}>
-        <FoodMap />
-      </section>
-
-
-        {/* Screen 4: RSVP */}
-        <section className="py-16 px-6 pb-24">
-            <div className="bg-[#FFFDF5] relative p-8 rounded-sm border border-[#2b4c7e]/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.05)] fade-up">
+                {/* Screen 4: RSVP */}
+        <section className="py-16 px-6 pb-24" ref={rsvpRef} id="rsvp">
+            <div className="reveal-item bg-[#FFFDF5] relative p-8 rounded-sm border border-[#2b4c7e]/10 shadow-[0_20px_40px_-10px_rgba(0,0,0,0.05)] fade-up" string-reveal string-reveal-delay="100">
                 {/* 邮票装饰 */}
                 <div className="absolute -top-3 -right-3 w-16 h-16 bg-white border border-[#2b4c7e]/10 shadow-sm flex items-center justify-center rotate-6 z-10">
                     <div className="w-[90%] h-[90%] border border-dashed border-[#d64045]/40 flex items-center justify-center">
@@ -313,17 +324,23 @@ function App() {
                 </form>
             </div>
 
-            {/* Footer */}
-            <div className="mt-12 text-center opacity-40">
-                <iconify-icon icon="lucide:heart-handshake" width="24" style={{top: '2px', position: 'relative', left: '1px'}} class="text-[#d64045] mb-2"></iconify-icon>
-                <p className="text-[10px] text-[#2b4c7e] font-en tracking-widest">THANK YOU</p>
-            </div>
         </section>
+
+      <section className="map-section" ref={mapRevealRef} string-reveal>
+        <FoodMap />
+            {/* Footer */}
+            <div className="reveal-item mt-12 text-center" string-reveal>
+                <div className="opacity-40">
+                    <iconify-icon icon="lucide:heart-handshake" width="24" style={{top: '2px', position: 'relative', left: '1px'}} class="text-[#d64045] mb-2"></iconify-icon>
+                    <p className="text-[10px] text-[#2b4c7e] font-en tracking-widest">THANK YOU</p>
+                </div>
+            </div>
+      </section>
+
 
     </div>
     </>
   )
 }
 
-import RSVPForm from './components/RSVPForm.jsx'
 export default App

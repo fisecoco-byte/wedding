@@ -14,14 +14,13 @@ const FOOD_SPOTS = [
   { category: '特色菜', name: '坛子烤肉', lng: 103.52, lat: 30.60, description: '独特坛子焖烤工艺，锁住肉汁，肥而不腻，风味独特。杨老师推荐，不好吃找他' },
   { category: '特色菜', name: '犟拐拐', lng: 103.52, lat: 30.59, description: '主打卤味与特色家常菜，味道正宗，分量十足，性价比极高。杨老师推荐，不好吃找他' },
   { category: '特色菜', name: '盆盆虾', lng: 103.53, lat: 30.57, description: '鲜虾个大饱满，麻辣鲜香，搭配丰富的配菜，让人欲罢不能。大邑老字号网红店，很多外地人开车来吃的，现在比较商业化了。' },
-  { category: '婚礼酒店', name: '推荐酒店', lng: 103.51, lat: 30.58, description: '婚礼指定推荐住宿酒店，环境舒适，交通便利。' },
 ]
 
-const CATEGORIES = ['小吃', '夜宵', '面包', '咖啡', '特色菜', '婚礼酒店']
+const CATEGORIES = ['小吃', '夜宵', '面包', '咖啡', '特色菜']
 
 export default function FoodMap() {
   const mapRef = useRef(null)
-  const [activeCategory, setActiveCategory] = useState('婚礼酒店')
+  const [activeCategory, setActiveCategory] = useState('小吃')
   const [mapInstance, setMapInstance] = useState(null)
   const [selectedSpot, setSelectedSpot] = useState(null)
   const [error, setError] = useState('')

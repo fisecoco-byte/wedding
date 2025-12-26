@@ -16,7 +16,11 @@ export function useStaggerReveal(selector = '.reveal-item', delay = 100) {
           item.style.transitionDelay = `${index * delay}ms`
           item.classList.add('in')
         })
-        observer.disconnect()
+      } else {
+        // Optional: remove 'in' class to allow re-animating when scrolling back
+        items.forEach((item) => {
+          item.classList.remove('in')
+        })
       }
     }, { threshold: 0.1 })
 
