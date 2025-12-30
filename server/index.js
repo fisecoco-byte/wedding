@@ -37,21 +37,64 @@ app.post('/api/rsvp', (req, res) => {
     if (existing) {
       const updateStmt = db.prepare(`
         UPDATE rsvps 
-        SET phone = ?, guests = ?, attendance = ?, needs_lodging = ?, note = ?, created_at = ?
+        SET phone = ?, guests = ?, attendance = ?, needs_lodging = ?, note = ?, created_at = ?, date = ?
         WHERE id = ?
       `);
-      updateStmt.run(phone, guests, attendance ? 1 : 0, needsLodging ? 1 : 0, note, created_at, existing.id);
+      updateStmt.run(phone, guests, attendance ? 1 : 0, needsLodging ? 1 : 0, note, created_at, date, existing.id);
     } else {
       const insertStmt = db.prepare(`
-        INSERT INTO rsvps (name, phone, guests, attendance, needs_lodging, note, created_at)
-        VALUES (?, ?, ?, ?, ?, ?, ?)
+        INSERT INTO rsvps (name, phone, guests, attendance, needs_lodging, note, created_at, date)
+        VALUES (?, ?, ?, ?, ?, ?, ?, ?)
       `);
-      insertStmt.run(name, phone, guests, attendance ? 1 : 0, needsLodging ? 1 : 0, note, created_at);
+      insertStmt.run(name, phone, guests, attendance ? 1 : 0, needsLodging ? 1 : 0, note, created_at, date);
     }
 
     res.json({ success: true });
   } catch (error) {
     console.error('Error saving RSVP:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Update RSVP
+app.put('/api/rsvp/:id', (req, res) => {
+  const { id } = req.params;
+  const { name, phone, guests, attendance, needsLodging, note, date } = req.body;
+
+  try {
+    const updateStmt = db.prepare(`
+      UPDATE rsvps 
+      SET name = ?, phone = ?, guests = ?, attendance = ?, needs_lodging = ?, note = ?, date = ?
+      WHERE id = ?
+    `);
+    const result = updateStmt.run(name, phone, guests, attendance ? 1 : 0, needsLodging ? 1 : 0, note, date, id);
+    
+    if (result.changes === 0) {
+      return res.status(404).json({ error: 'RSVP not found' });
+    }
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error updating RSVP:', error);
+    res.status(500).json({ error: 'Internal server error' });
+  }
+});
+
+// Delete RSVP
+app.delete('/api/rsvp/:id', (req, res) => {
+  const { id } = req.params;
+
+  try {
+    const deleteStmt = db.prepare('DELETE FROM rsvps WHERE id = ?');
+    const result = deleteStmt.run(id);
+
+    if (result.changes === 0) {
+      return res.status(404).json({ error: 'RSVP not found' });
+    }
+
+    res.json({ success: true });
+  } catch (error) {
+    console.error('Error deleting RSVP:', error);
     res.status(500).json({ error: 'Internal server error' });
   }
 });

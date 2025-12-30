@@ -109,6 +109,8 @@ function App() {
   const [note, setNote] = useState('')
   const [status, setStatus] = useState({ type: 'idle', message: '' })
 
+  const [date, setDate] = useState('2026-01-24') // Default date
+
   async function handleSubmit(e) {
     e.preventDefault()
     setStatus({ type: 'loading', message: '提交中…' })
@@ -118,7 +120,7 @@ function App() {
         name: name.trim(),
         phone: phone.trim(),
         guests: parseInt(guests) || 1,
-        date: '2026-01-24', // Default date
+        date: date,
         needsLodging: needsLodging === 'yes',
         note: note.trim() || (attendance === 'no' ? '遗憾缺席' : ''),
         created_at: new Date().toISOString(),
@@ -262,6 +264,24 @@ function App() {
                           value={guests}
                           onChange={(e) => setGuests(e.target.value)}
                         />
+                    </div>
+
+                    <div className="space-y-2">
+                        <label className="text-xs text-[#2b4c7e]/60 tracking-widest block">ARRIVAL DATE</label>
+                        <div className="flex gap-4 pt-2">
+                            <label className="flex items-center gap-2 cursor-pointer group" onClick={() => setDate('2026-01-23')}>
+                                <div className={`w-4 h-4 rounded-full border border-[#2b4c7e]/30 flex items-center justify-center group-hover:border-[#d64045] ${date === '2026-01-23' ? 'border-[#d64045]' : ''}`}>
+                                    {date === '2026-01-23' && <div className="w-2 h-2 rounded-full bg-[#d64045]"></div>}
+                                </div>
+                                <span className={`text-sm ${date === '2026-01-23' ? 'text-[#d64045]' : 'text-[#2b4c7e]/60'}`}>1月23日</span>
+                            </label>
+                            <label className="flex items-center gap-2 cursor-pointer group" onClick={() => setDate('2026-01-24')}>
+                                <div className={`w-4 h-4 rounded-full border border-[#2b4c7e]/30 flex items-center justify-center group-hover:border-[#d64045] ${date === '2026-01-24' ? 'border-[#d64045]' : ''}`}>
+                                    {date === '2026-01-24' && <div className="w-2 h-2 rounded-full bg-[#d64045]"></div>}
+                                </div>
+                                <span className={`text-sm ${date === '2026-01-24' ? 'text-[#d64045]' : 'text-[#2b4c7e]/60'}`}>1月24日</span>
+                            </label>
+                        </div>
                     </div>
 
                     <div className="space-y-2">

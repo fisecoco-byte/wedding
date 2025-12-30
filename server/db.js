@@ -17,8 +17,16 @@ db.exec(`
     attendance BOOLEAN,
     needs_lodging BOOLEAN,
     note TEXT,
-    created_at TEXT
+    created_at TEXT,
+    date TEXT
   )
 `);
+
+// Migration: Add date column if not exists (for existing dbs)
+try {
+  db.exec('ALTER TABLE rsvps ADD COLUMN date TEXT');
+} catch (e) {
+  // Column likely already exists
+}
 
 export default db;
