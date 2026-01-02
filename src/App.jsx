@@ -6,6 +6,8 @@ import FoodMap from './components/FoodMap.jsx'
 import { StringTune, StringParallax, StringLerp } from '@fiddle-digital/string-tune'
 import { StringReveal } from './modules/StringReveal.js'
 
+import MusicPlayer from './components/MusicPlayer.jsx'
+
 function LoadingScreen({ isLoading }) {
   const [shouldRender, setShouldRender] = useState(true)
   
@@ -28,7 +30,7 @@ function LoadingScreen({ isLoading }) {
          </div>
        </div>
        <div className="text-[#2b4c7e] font-serif tracking-[0.3em] text-sm animate-pulse">
-         正在开启浪漫之旅...
+         Loading...
        </div>
     </div>
   )
@@ -166,6 +168,7 @@ function App() {
 
   return (
     <>
+      <MusicPlayer shouldPlay={!isLoading} />
       <LoadingScreen isLoading={isLoading} />
       <div className={`invitation page-enter ${pageVisible ? 'visible' : ''}`} string="scroll">
         <section className="velocity-skew" string-lerp>
