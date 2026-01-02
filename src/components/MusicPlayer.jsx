@@ -5,6 +5,22 @@ export default function MusicPlayer({ shouldPlay }) {
   const [isPlaying, setIsPlaying] = useState(false)
 
   useEffect(() => {
+    const audio = audioRef.current
+    if (!audio) return
+
+    const onPlay = () => setIsPlaying(true)
+    const onPause = () => setIsPlaying(false)
+    
+    audio.addEventListener('play', onPlay)
+    audio.addEventListener('pause', onPause)
+    
+    return () => {
+      audio.removeEventListener('play', onPlay)
+      audio.removeEventListener('pause', onPause)
+    }
+  }, [])
+
+  useEffect(() => {
     if (!shouldPlay) return
 
     // Try to auto-play when component mounts
@@ -15,18 +31,12 @@ export default function MusicPlayer({ shouldPlay }) {
       
       if (playPromise !== undefined) {
         playPromise
-          .then(() => {
-            setIsPlaying(true)
-          })
           .catch(error => {
             console.log("Auto-play was prevented:", error)
-            setIsPlaying(false)
             
             // Add one-time listener to document to start music on first interaction
             const startMusic = () => {
               audio.play()
-                .then(() => setIsPlaying(true))
-                .catch(e => console.error("Play failed:", e))
               document.removeEventListener('click', startMusic)
               document.removeEventListener('touchstart', startMusic)
             }
@@ -45,7 +55,6 @@ export default function MusicPlayer({ shouldPlay }) {
       } else {
         audio.play()
       }
-      setIsPlaying(!isPlaying)
     }
   }
 
